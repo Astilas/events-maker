@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Container, Row, Col } from 'react-bootstrap';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './event.css';
 
-function App() {
+function Event() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>coucou voici un événement</h1>
+     <Container className="border">
+      <Row>
+        <Col>
+          <FontAwesomeIcon icon={faEdit} className="" />
+          <FontAwesomeIcon icon={faTrash} className="" />
+        </Col>
+        <Col>
+          <h1>Titre</h1>
+        </Col>
+        <Col>
+          <h1>type d'événement</h1>
+        </Col>
+        <Col>
+          <h1>date</h1>
+        </Col>
+        <Col>
+          <h1>heure</h1>
+        </Col>
+        <Col>
+          <h1>description</h1>
+        </Col>
+        <small>created or updated since timestamp</small>
+      </Row>
+     </Container>
     </div>
   );
 }
 
-export default App;
+export default Event;
