@@ -8,25 +8,25 @@ function Event() {
   return (
     <div className="App">
      <h1>coucou voici un événement</h1>
-     <Container className="border">
+     <Container className="border-container">
       <Row>
-        <Col>
-          <FontAwesomeIcon icon={faEdit} className="" />
-          <FontAwesomeIcon icon={faTrash} className="" />
+        <Col className="icon-column">
+          <FontAwesomeIcon icon={faEdit} className="icon-size" />
+          <FontAwesomeIcon icon={faTrash} className="icon-size" />
         </Col>
-        <Col>
+        <Col lg={12} md={12} sm={12} xs={12}>
           <h1>Titre</h1>
         </Col>
-        <Col>
+        <Col lg={12} md={12} sm={12} xs={12}>
           <h1>type d'événement</h1>
         </Col>
-        <Col>
+        <Col lg={12} md={12} sm={12} xs={12}>
           <h1>date</h1>
         </Col>
-        <Col>
+        <Col lg={12} md={12} sm={12} xs={12}>
           <h1>heure</h1>
         </Col>
-        <Col>
+        <Col lg={12} md={12} sm={12} xs={12}>
           <h1>description</h1>
         </Col>
         <small>created or updated since timestamp</small>

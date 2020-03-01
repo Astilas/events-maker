@@ -1,4 +1,14 @@
-.border {
-    display: block;
+.border-container {
+    display: flex;
     border: solid black;
+}
+
+.icon-column {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icon-size {
+    size: 20px;
+    margin: 5px;
 }

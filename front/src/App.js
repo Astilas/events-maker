@@ -1,12 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import EventsList from './components/EventsList';
+import EventForm from './components/EventForm';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <EventsList />
+      <EventForm />
     </div>
   );
 }
