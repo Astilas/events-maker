@@ -1,16 +1,13 @@
 import React from 'react';
-import { Container, Button } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
+import { Container } from 'react-bootstrap';
 import axios from 'axios';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { createEvent, addEvent, clearForm } from '../reducers/actions/actionsEvents';
+import './event.css';
 
-class EventForm extends React.Component {
+class UpdateEventForm extends React.Component {
     constructor(props){
         super(props);
         this.state={};
-        this.postEvent = this.postEvent.bind(this);
+        this.updateEvent = this.updateEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -18,9 +15,10 @@ class EventForm extends React.Component {
        this.props.createEvent(e)
     }
 
-    postEvent(e) {
+    updateEvent(e) {
         e.preventDefault();
         const {
+            id,
             title, 
             category, 
             date, 
@@ -28,7 +26,7 @@ class EventForm extends React.Component {
             description,
             eventList
         } = this.props;
-        axios.post('http://localhost:5000/events',
+        axios.put(`http://localhost:5000/events/${id}`,
             {
                 title,
                 category,
@@ -36,9 +34,6 @@ class EventForm extends React.Component {
                 hour,
                 description,
             })
-            .then((response) => response.config.data)
-            .then(() => this.props.addEvent(eventList))
-            .then(() => this.props.clearForm())
             .catch((e) => console.log(e))
     };
 
@@ -57,7 +52,7 @@ class EventForm extends React.Component {
                         <Form.Label>Titre</Form.Label>
                         <Form.Control 
                             type="name" 
-                            placeholder="username" 
+                            placeholder={title} 
                             value={title} 
                             name="title" 
                             onChange={this.handleChange}
@@ -81,7 +76,7 @@ class EventForm extends React.Component {
                         <Form.Label>Date</Form.Label>
                         <Form.Control 
                             type="date" 
-                            placeholder="yyyy-mm-dd" 
+                            placeholder={date} 
                             value={date} 
                             name="date" 
                             onChange={this.handleChange}
@@ -91,8 +86,9 @@ class EventForm extends React.Component {
                         <Form.Label>Hour</Form.Label>
                         <Form.Control 
                             type="hour" 
-                            placeholder="16h30"
-                            value={hour} name="hour"
+                            placeholder={hour}
+                            value={hour} 
+                            name="hour"
                             onChange={this.handleChange}
                         />
                     </Form.Group>
@@ -101,6 +97,7 @@ class EventForm extends React.Component {
                         <Form.Control 
                             as="textarea" 
                             rows="3"
+                            placeholder={description}
                             value={description} 
                             name="description"
                             onChange={this.handleChange}
@@ -110,7 +107,7 @@ class EventForm extends React.Component {
                         variant="primary" 
                         type="submit"
                     >
-                        Submit
+                        Update
                     </Button>
                 </Form>
             </Container>
@@ -118,20 +115,5 @@ class EventForm extends React.Component {
     }
 }
 
-  const mapStateToProps = (state) => ({
-    eventList: state.events.eventList,
-    title: state.events.title,
-    category: state.events.category,
-    date: state.events.date,
-    hour: state.events.hour,
-    description: state.events.description,
-  });
 
-  const mapDispatchToProps = (dispatch) => ({
-    createEvent: bindActionCreators(createEvent, dispatch),
-    addEvent: bindActionCreators(addEvent, dispatch),
-    clearForm: bindActionCreators(clearForm, dispatch),
-  });
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(EventForm);
-  
+export default UpdateEventForm;

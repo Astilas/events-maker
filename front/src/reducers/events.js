@@ -1,5 +1,10 @@
 const initialState = {
   eventList : [],
+  title: '', 
+  category: '', 
+  date: '', 
+  hour: '',  
+  description:'',
 };
 
 const eventsReducer = (state = initialState, action) => {
@@ -9,6 +14,36 @@ const eventsReducer = (state = initialState, action) => {
       return {
         ...state, 
         eventList: [...eventList, ...action.events],
+      }
+    }
+    case 'POST_EVENT': {
+      return {
+        ...state, 
+        [action.name]: action.value,
+      }
+    }
+    case 'DELETE_EVENT': {
+      return {
+        ...state,
+        eventList: action.events,
+      }
+    }
+    case 'ADD_EVENT': {
+      const { eventList } = state;
+      return {
+        ...state,
+        eventList: [action.events],
+      }
+    }
+    case 'CLEAR_FORM': {
+      const { eventList } = state;
+      return {
+        eventList,
+        title: '', 
+        category: '', 
+        date: '', 
+        hour: '',  
+        description:'',
       }
     }
     default:

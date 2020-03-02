@@ -30,7 +30,8 @@ class EventsList extends React.Component {
       {
         eventList.map((event) =>(
           <Event
-            key={event.id} 
+            key={event.id}
+            id={event.id}
             title={event.title}
             category={event.category}
             date={event.date}
