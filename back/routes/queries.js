@@ -1,55 +1,26 @@
 const pool = require('../module-db/config')
 
-const createUser = (request, response) => {
-    const { username, password } = request.body
-  
-    pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [username, password], (error, results) => {
-      if (error) {
-        throw error
-      }
-      response.status(201).send(`User added with ID: ${result.insertId}`)
-    })
-  }
-
-const getUsers = (request, response) => {
-    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(200).json(results.rows);
-    })
-  }
-  
-  const getUserById = (request, response) => {
-    const id = parseInt(request.params.id)
-  
-    pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(200).json(results.rows)
-    });
-  };
-  
+  // Query allowing to create an event
   const createEvent = (request, response) => {
-    const { title, category, date, hour, unix_time, description, user_id } = request.body;
-    const dataEvents = { 
-        title, 
-        category, 
-        date, 
-        hour, 
-        unix_time, 
-        description, 
-        user_id
-    };
-    pool.query('INSERT INTO events SET ?', dataEvents, (error, results) => {
+    const { title, category, date, hour, description} = request.body;
+
+    pool.query('INSERT INTO "events" (title, category, date, hour, unix_time, description) VALUES ($1, $2, $3, $4, $5, $6)', 
+    [
+      title, 
+      category, 
+      date, 
+      hour, 
+      unix_time = Date.now(),
+      description, 
+    ], (error, results) => {
         if (error) {
           throw error;
         }
-        response.status(201).send(`Event added with ID: ${result.insertId}`)
+        response.status(201).send('Event added')
     });
   };
 
+  // Query allowing to get all events
   const getEvents = (request, response) => {
     pool.query('SELECT * FROM events ORDER BY id ASC', (error, results) => {
         if (error) {
@@ -59,12 +30,13 @@ const getUsers = (request, response) => {
       })
   };
 
-  const updateEvent = (req, res) => {
-    const id = parseInt(request.params.id)
-    const { title, category, date, hour, unix_time, description, user_id } = request.body;
-  
+  // Query allowing to update events table
+  const updateEvent = (request, response) => {
+    const id = parseInt(request.params.id);
+    const { title, category, date, hour, description } = request.body;
     pool.query(
-      `UPDATE events SET title = $1, 
+      `UPDATE events SET 
+        title = $1, 
         category = $2, 
         date = $3, 
         hour = $4, 
@@ -72,32 +44,30 @@ const getUsers = (request, response) => {
         description = $6, 
         user_id = $7 
         WHERE id = $8`,
-      [title, category, date, hour, unix_time, description, user_id, id],
+      [title, category, date, hour, unix_time= Date.now(), description, user_id=1, id],
       (error, results) => {
         if (error) {
           throw error;
         }
-        response.status(200).send(`User modified with ID: ${id}`);
+        response.status(200).send('Event modified');
       }
     );
   };
 
+  // Query allowing to delete an event 
   const deleteEvent = (request, response) => {
-    const id = parseInt(request.params.id)
+    const { id } = request.params;
   
     pool.query('DELETE FROM events WHERE id = $1', [id], (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(200).send(`User deleted with ID: ${id}`);
+      response.status(200).send('Event deleted');
     })
   };
 
 
   module.exports = {
-    createUser,
-    getUsers,
-    getUserById,
     createEvent,
     getEvents,
     updateEvent,

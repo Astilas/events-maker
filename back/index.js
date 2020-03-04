@@ -12,16 +12,18 @@ app.use(
   })
 )
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+   //Enabling CORS
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+   next();
 });
 
 // Routes
-app.get('/users', db.getUsers);
-app.get('/users/:id', db.getUserById);
 app.get('/events', db.getEvents);
 app.post('/events', db.createEvent);
+app.put('/events/:id', db.updateEvent);
+app.delete('/events/:id', db.deleteEvent);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
