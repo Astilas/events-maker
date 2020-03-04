@@ -13,10 +13,11 @@ CREATE DATABASE calendar2
 
 CREATE TABLE events 
 (
-    id integer PRIMARY KEY NOT NULL, 
+    id SERIAL PRIMARY KEY NOT NULL, 
     title VARCHAR(60) NOT NULL,
     category VARCHAR(60) NOT NULL,
     date DATE NOT NULL,
+    hour VARCHAR(5),
     unix_time bigint NOT NULL, 
     description VARCHAR(260) NOT NULL
 )
