@@ -1,10 +1,12 @@
 import React from 'react';
 import Event from './Event';
 import axios from 'axios';
+import { Container, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchEventList,
 } from '../reducers/actions/actionsEvents';
+import './event.css';
 
 class EventsList extends React.Component {
 
@@ -12,6 +14,7 @@ class EventsList extends React.Component {
     this.fetchEvents();
   }
 
+  // Load all existing events 
   fetchEvents(){
     axios.get('http://localhost:5000/events')
       .then((res) => {
@@ -24,11 +27,19 @@ class EventsList extends React.Component {
   }
 
   render() {
-    const { eventList } = this.props;
+    const { eventList, history } = this.props;
     return (
-    <div className="">
+    <div>
+      <div className="margin">
+      <Button onClick={() => history.push('/eventForm')}>
+        Create new event
+      </Button>
+      </div>
+      <Container className="border-container">
+      <h1>Liste des événements:</h1>
       {
-        eventList.map((event) =>(
+        eventList.length > 0 
+        ? eventList.map((event) =>(
           <Event
             key={event.id}
             id={event.id}
@@ -38,9 +49,12 @@ class EventsList extends React.Component {
             hour={event.hour}
             unix_time={event.unix_time}
             description={event.description}
+            history={history}
           />
       ))
+      : <h1 className="text-align">Aucun événement</h1>
     }
+    </Container>
     </div>
   );
   }

@@ -1,23 +1,26 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { deleteOneEvent,
+import {
+  deleteOneEvent,
 } from '../reducers/actions/actionsEvents';
+import Card from 'react-bootstrap/Card';
 import './event.css';
 
 class Event extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={};
+    this.state = {};
 
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  deleteEvent(id){
+  // function that delete an event with corresponding id
+  deleteEvent(id) {
     const { eventList } = this.props;
     (
       axios.delete(`http://localhost:5000/events/${id}`)
@@ -25,59 +28,52 @@ class Event extends React.Component {
           const newEventList = eventList
             .filter((event) => event.id !== id);
           this.props.deleteOneEvent(newEventList);
+          //delete one event state
         })
     );
   };
 
 
-  handleDelete(id){
+  handleDelete(id) {
     this.deleteEvent(id)
   }
 
-  render(){
-    const { title, category, date, hour, unix_time, description, id } = this.props;
+  render() {
+    const { title, date, hour, unix_time, description, id, history } = this.props;
+    const unixTime = parseInt(unix_time)
+    const year = new Date(unixTime).getFullYear();
+    const month = new Date(unixTime).getUTCMonth();
+    const day = new Date(unixTime).getUTCDay();
+    const hours = new Date(unixTime).getUTCHours();
+    const minutes = new Date(unixTime).getUTCMinutes();
     return (
-      <div className="App">
-        <h1>coucou voici un événement</h1>
-        <Container className="border-container">
-          <Row>
-            <Col className="icon-column">
-              <FontAwesomeIcon 
-                icon={faEdit} 
-                className="icon-size" 
-                // onClick={()=> 
-                //   <UpdateEventForm
-                //     key={event.id}
-                //     id={id} 
-                //     title={title}
-                //     category={category}
-                //     date={date}
-                //     hour={hour}
-                //     unix_time={unix_time}
-                //     description={description}
-                //   />
-              />
-              <FontAwesomeIcon icon={faTrash} className="icon-size" onClick={() => this.handleDelete(id)} />
-            </Col>
-            <Col lg={12} md={12} sm={12} xs={12}>
-              <h1>{title} {id}</h1>
-            </Col>
-            <Col lg={12} md={12} sm={12} xs={12}>
-              <h1>{category}</h1>
-            </Col>
-            <Col lg={12} md={12} sm={12} xs={12}>
-              <h1>{date}</h1>
-            </Col>
-            <Col lg={12} md={12} sm={12} xs={12}>
-              <h1>{hour}</h1>
-            </Col>
-            <Col lg={12} md={12} sm={12} xs={12}>
-              <h1>{description}</h1>
-            </Col>
-            <small>created or updated since {unix_time}</small>
-          </Row>
-        </Container>
-      </div>
+      <Row className="div-event">
+        <Card bg="light" style={{ width: '30rem' }}>
+        <Card.Header>
+          <h2>{title}</h2>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title>{date.slice(0, 10)} à {hour}</Card.Title>
+          <Card.Text>
+            {description}
+            <small className="content-right">created {year}-{month}-{day} at {hours}:{minutes} {} </small>
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+        <FontAwesomeIcon
+            icon={faEdit}
+            className="icon-size"
+            onClick={() =>
+              history.push(`/update-event/${id}`)}
+          />
+            <FontAwesomeIcon
+              icon={faTrash}
+              className="icon-size"
+              onClick={() => this.handleDelete(id)}
+            />
+        </Card.Footer>
+      </Card>
+      </Row>
     );
   }
 }

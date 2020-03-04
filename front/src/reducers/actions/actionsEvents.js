@@ -1,3 +1,4 @@
+
 export const fetchEventList = (eventList) => (dispatch) => dispatch({
     type: 'GET_EVENTLIST',
     events: eventList,
@@ -12,11 +13,6 @@ export const createEvent = (e) => (dispatch) => dispatch ({
 export const deleteOneEvent = (newEventList) => (dispatch) => dispatch ({
     type: 'DELETE_EVENT',
     events: newEventList,
-})
-
-export const addEvent = (newEvent) => (dispatch) => dispatch ({
-    type: 'ADD_EVENT',
-    events: newEvent,
 })
 
 export const clearForm = () => (dispatch) => dispatch ({

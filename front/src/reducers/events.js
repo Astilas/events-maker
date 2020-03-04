@@ -10,10 +10,9 @@ const initialState = {
 const eventsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_EVENTLIST': {
-      const { eventList } = state;
       return {
         ...state, 
-        eventList: [...eventList, ...action.events],
+        eventList: [...action.events],
       }
     }
     case 'POST_EVENT': {
@@ -28,13 +27,7 @@ const eventsReducer = (state = initialState, action) => {
         eventList: action.events,
       }
     }
-    case 'ADD_EVENT': {
-      const { eventList } = state;
-      return {
-        ...state,
-        eventList: [action.events],
-      }
-    }
+    
     case 'CLEAR_FORM': {
       const { eventList } = state;
       return {
