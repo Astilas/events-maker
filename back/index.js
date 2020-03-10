@@ -21,6 +21,7 @@ app.use(function(req, res, next) {
 
 // Routes
 app.get('/events', db.getEvents);
+app.get('/events/:id', db.getEventsById)
 app.post('/events', db.createEvent);
 app.put('/events/:id', db.updateEvent);
 app.delete('/events/:id', db.deleteEvent);

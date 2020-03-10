@@ -30,6 +30,17 @@ const pool = require('../module-db/config')
       })
   };
 
+  //Query allowing to get event by id 
+  const getEventsById = (request, response) => {
+    const id = parseInt(request.params.id);
+    pool.query('SELECT * FROM events WHERE id = $1', [id], (error, results) => {
+        if (error) {
+          throw error;
+        }
+        response.status(200).json(results.rows);
+      })
+  };
+
   // Query allowing to update events table
   const updateEvent = (request, response) => {
     const id = parseInt(request.params.id);
@@ -41,10 +52,9 @@ const pool = require('../module-db/config')
         date = $3, 
         hour = $4, 
         unix_time = $5, 
-        description = $6, 
-        user_id = $7 
-        WHERE id = $8`,
-      [title, category, date, hour, unix_time= Date.now(), description, user_id=1, id],
+        description = $6
+        WHERE id = $7`,
+      [title, category, date, hour, unix_time= Date.now(), description, id],
       (error, results) => {
         if (error) {
           throw error;
@@ -69,6 +79,7 @@ const pool = require('../module-db/config')
 
   module.exports = {
     createEvent,
+    getEventsById,
     getEvents,
     updateEvent,
     deleteEvent,

@@ -17,7 +17,8 @@ CREATE TABLE events
     title VARCHAR(60) NOT NULL,
     category VARCHAR(60) NOT NULL,
     date DATE NOT NULL,
-    hour VARCHAR(5),
+    hour TIME,
     unix_time bigint NOT NULL, 
-    description VARCHAR(260) NOT NULL
+    description VARCHAR(260) NOT NULL, 
+    location VARCHAR(60) NOT NULL,
 )
