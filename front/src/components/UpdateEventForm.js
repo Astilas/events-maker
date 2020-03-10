@@ -74,9 +74,8 @@ class UpdateEventForm extends React.Component {
             hour,
             description,
             history,
-            eventList
         } = this.props;
-        console.log(date)
+
         return (
             <Container className="">
                 <h1 className="margin">Mise à jour de l'événement</h1>
