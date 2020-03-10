@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createEvent } from '../reducers/actions/actionsEvents';
 import './event.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notify = () => toast('Your event has been updated');
+const notifyError = () => toast('Unexpected error has occur')
+toast.configure();
 
 class UpdateEventForm extends React.Component {
     constructor(props) {
@@ -40,7 +46,8 @@ class UpdateEventForm extends React.Component {
                 description,
             })
             .then(() => history.push('/'))
-            .catch((e) => console.log(e))
+            .then(() => notify())
+            .catch((e) => notifyError())
     };
 
     render() {
@@ -78,6 +85,7 @@ class UpdateEventForm extends React.Component {
                                     onChange={this.handleChange}
                                     required
                                 >
+                                    <option value="">Choose...</option>
                                     <option value="fête">Fête</option>
                                     <option value="conférence">Conférence</option>
                                     <option value="anniversaire">Anniversaire</option>
@@ -103,7 +111,7 @@ class UpdateEventForm extends React.Component {
                             <Form.Group>
                                 <Form.Label>Heure</Form.Label>
                                 <Form.Control
-                                    type="hour"
+                                    type="time"
                                     value={hour}
                                     name="hour"
                                     onChange={this.handleChange}

@@ -5,6 +5,12 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createEvent, clearForm } from '../reducers/actions/actionsEvents';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const notify = () => toast('Your event has been created');
+const notifyError = () => toast('Unexpected error has occur')
+toast.configure();
 
 class EventForm extends React.Component {
     constructor(props) {
@@ -40,7 +46,8 @@ class EventForm extends React.Component {
             })
             .then(() => history.push('/'))
             .then(() => this.props.clearForm()) // clear inpput
-            .catch((e) => console.log(e))
+            .then(() => notify())
+            .catch((e) => notifyError())
     };
 
     render() {
@@ -50,6 +57,7 @@ class EventForm extends React.Component {
             date,
             hour,
             description,
+            history
         } = this.props;
         return (
             <Container className="margin">
@@ -65,6 +73,7 @@ class EventForm extends React.Component {
                                     value={title}
                                     name="title"
                                     onChange={this.handleChange}
+                                    required
                                 />
                             </Form.Group>
                         </Col>
@@ -78,6 +87,7 @@ class EventForm extends React.Component {
                                     onChange={this.handleChange}
                                     required
                                 >
+                                    <option value="">Choose...</option>
                                     <option value="fête">Fête</option>
                                     <option value="conférence">Conférence</option>
                                     <option value="anniversaire">Anniversaire</option>
@@ -95,6 +105,7 @@ class EventForm extends React.Component {
                                     value={date}
                                     name="date"
                                     onChange={this.handleChange}
+                                    required
                                 />
                             </Form.Group>
                         </Col>
@@ -102,10 +113,12 @@ class EventForm extends React.Component {
                             <Form.Group>
                                 <Form.Label>Heure</Form.Label>
                                 <Form.Control
-                                    type="hour"
+                                    type="time"
                                     placeholder="16h30"
-                                    value={hour} name="hour"
+                                    value={hour} 
+                                    name="hour"
                                     onChange={this.handleChange}
+                                    required
                                 />
                             </Form.Group>
                         </Col>
@@ -118,13 +131,21 @@ class EventForm extends React.Component {
                             value={description}
                             name="description"
                             onChange={this.handleChange}
+                            required
                         />
                     </Form.Group>
                     <Button
                         variant="primary"
                         type="submit"
+                        className="margin"
                     >
                         Submit
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => history.push("/")}
+                    >
+                        Back
                     </Button>
                 </Form>
             </Container>
