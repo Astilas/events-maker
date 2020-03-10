@@ -30,7 +30,7 @@ const pool = require('../module-db/config')
       })
   };
 
-  //Query allowing to get event by id 
+  // Query allowing to get event by id 
   const getEventsById = (request, response) => {
     const id = parseInt(request.params.id);
     pool.query('SELECT * FROM events WHERE id = $1', [id], (error, results) => {
