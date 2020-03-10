@@ -15,6 +15,16 @@ const eventsReducer = (state = initialState, action) => {
         eventList: [...action.events],
       }
     }
+    case 'GET_DATA_EVENT': {
+      return {
+        ...state, 
+        title: action.title,
+        category: action.category,
+        description: action.description,
+        hour: action.hour,
+        date: action.date,
+      }
+    }
     case 'POST_EVENT': {
       return {
         ...state, 

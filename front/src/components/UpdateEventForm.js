@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createEvent } from '../reducers/actions/actionsEvents';
+import { createEvent, getDataEvent, clearForm } from '../reducers/actions/actionsEvents';
 import './event.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,11 +19,25 @@ class UpdateEventForm extends React.Component {
         this.state = {};
         this.updateEvent = this.updateEvent.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.fetchEventData = this.fetchEventData.bind(this);
     }
 
+    componentDidMount() {
+        this.fetchEventData()
+    }
     handleChange(e) {
         this.props.createEvent(e)
         // Change state on input
+    }
+
+    // fetch data from one particular event
+    fetchEventData(){
+        const { id } = this.props.match.params;
+        axios.get(`http://localhost:5000/event/${id}`)
+        .then((res) => {
+            const eventData = res.data;
+            this.props.getDataEvent(eventData);
+        })
     }
 
     // Update event with corresponding id
@@ -37,7 +51,8 @@ class UpdateEventForm extends React.Component {
             description,
             history
         } = this.props;
-        axios.put(`http://localhost:5000/events/${this.props.match.params.id}`,
+        const { id } = this.props.match.params;
+        axios.put(`http://localhost:5000/events/${id}`,
             {
                 title,
                 category,
@@ -46,6 +61,7 @@ class UpdateEventForm extends React.Component {
                 description,
             })
             .then(() => history.push('/'))
+            .then(() => this.props.clearForm())
             .then(() => notify())
             .catch((e) => notifyError())
     };
@@ -57,7 +73,10 @@ class UpdateEventForm extends React.Component {
             date,
             hour,
             description,
+            history,
+            eventList
         } = this.props;
+        console.log(date)
         return (
             <Container className="">
                 <h1 className="margin">Mise à jour de l'événement</h1>
@@ -69,6 +88,7 @@ class UpdateEventForm extends React.Component {
                                 <Form.Control
                                     type="name"
                                     value={title}
+                                    placeholder={title}
                                     name="title"
                                     onChange={this.handleChange}
                                     required
@@ -85,7 +105,7 @@ class UpdateEventForm extends React.Component {
                                     onChange={this.handleChange}
                                     required
                                 >
-                                    <option value="">Choose...</option>
+                                    <option value={category}>{category}</option>
                                     <option value="fête">Fête</option>
                                     <option value="conférence">Conférence</option>
                                     <option value="anniversaire">Anniversaire</option>
@@ -100,7 +120,7 @@ class UpdateEventForm extends React.Component {
                                 <Form.Label>Date</Form.Label>
                                 <Form.Control
                                     type="date"
-                                    value={date}
+                                    value={date.slice(0,10)}
                                     name="date"
                                     onChange={this.handleChange}
                                     required
@@ -127,15 +147,24 @@ class UpdateEventForm extends React.Component {
                             rows="3"
                             value={description}
                             name="description"
+                            placeholder={description}
                             onChange={this.handleChange}
+                            maxLength="260"
                             required
                         />
                     </Form.Group>
                     <Button
                         variant="primary"
                         type="submit"
+                        className="margin"
                     >
                         Update
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => {history.push("/"); this.props.clearForm()}}
+                    >
+                        Back
                     </Button>
                 </Form>
             </Container>
@@ -153,6 +182,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     createEvent: bindActionCreators(createEvent, dispatch),
+    getDataEvent: bindActionCreators(getDataEvent, dispatch),
+    clearForm: bindActionCreators(clearForm, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateEventForm);

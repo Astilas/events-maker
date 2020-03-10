@@ -78,6 +78,7 @@ class Event extends React.Component {
     const day = new Date(unixTime).getUTCDate();
     const hours = new Date(unixTime).getHours();
     const minutes = new Date(unixTime).getMinutes();
+
     return (
       <Row className="div-event">
         <Card bg="light" style={{ width: '30rem' }}>

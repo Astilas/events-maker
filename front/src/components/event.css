@@ -24,6 +24,19 @@
     margin: 50px;
 }
 
+.margin-event {
+    margin: 15px;
+}
+.card {
+    width: 400px;
+    height: 340px;
+}
+
+.event-list {
+    display: inline-flex;
+    justify-content: center;
+}
+
 .content-right{
     display: flex;
     justify-content: flex-end;

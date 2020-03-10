@@ -18,3 +18,12 @@ export const deleteOneEvent = (newEventList) => (dispatch) => dispatch ({
 export const clearForm = () => (dispatch) => dispatch ({
     type: 'CLEAR_FORM',
 })
+
+export const getDataEvent = (eventData) => (dispatch) => dispatch ({
+    type: 'GET_DATA_EVENT',
+    title: eventData[0].title,
+    category: eventData[0].category,
+    description: eventData[0].description,
+    date: eventData[0].date,
+    hour: eventData[0].hour,
+})
