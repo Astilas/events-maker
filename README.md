@@ -31,7 +31,7 @@ Environnement technique postgreSQL, express.js, react.js, redux
 
 Faites un clone de ce répertoire
 
-Lancer la commande suivante "psql -h localhost -f  ~/events-maker/back/postgres/createDb.sql 
+Lancer la commande suivante "psql -h localhost -f  ~/events-maker/back/postgresql/createDb.sql 
 afin d'exécuter le script qui créera la base de données ainsi que la table.
 
 Dans le fichier config.js modifier le mot de passe pour qu'il corresponde au mot de passe postgres de votre machine.
