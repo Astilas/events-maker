@@ -25,8 +25,9 @@
 }
 
 .margin-event {
-    margin: 15px;
+    margin: 30px;
 }
+
 .card {
     width: 400px;
     height: 340px;
@@ -40,4 +41,13 @@
 .content-right{
     display: flex;
     justify-content: flex-end;
+}
+
+.flex-content{
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.icon-size :hover{
+    transform: scale(1.2);
 }

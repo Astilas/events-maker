@@ -5,6 +5,7 @@ const initialState = {
   date: '', 
   hour: '',  
   description:'',
+  categoryEvent: '',
 };
 
 const eventsReducer = (state = initialState, action) => {
@@ -37,7 +38,6 @@ const eventsReducer = (state = initialState, action) => {
         eventList: action.events,
       }
     }
-    
     case 'CLEAR_FORM': {
       const { eventList } = state;
       return {
@@ -47,6 +47,13 @@ const eventsReducer = (state = initialState, action) => {
         date: '', 
         hour: '',  
         description:'',
+        categoryEvent: '',
+      }
+    }
+    case 'FILTER_EVENT': {
+      return  {
+        ...state,
+        [action.name]: action.value,
       }
     }
     default:

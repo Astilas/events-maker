@@ -27,3 +27,9 @@ export const getDataEvent = (eventData) => (dispatch) => dispatch ({
     date: eventData[0].date,
     hour: eventData[0].hour,
 })
+
+export const filterEvent = (e) => (dispatch) => dispatch ({
+    type: 'FILTER_EVENT',
+    name: e.target.name,
+    value: e.target.value,
+})

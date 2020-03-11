@@ -42,7 +42,8 @@ class Event extends React.Component {
     const { title, date, hour, unix_time, description, id, history } = this.props;
     const unixTime = parseInt(unix_time)
     const year = new Date(unixTime).getFullYear();
-    const month = new Date(unixTime).getUTCMonth()+1;
+    let month = new Date(unixTime).getUTCMonth()+1;
+    if (month < 10) month = `0${month}`
     const day = new Date(unixTime).getUTCDate();
     const hours = new Date(unixTime).getHours();
     const minutes = new Date(unixTime).getMinutes();

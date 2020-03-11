@@ -2,14 +2,21 @@ import React from 'react';
 import Event from './Event';
 import axios from 'axios';
 import { Container, Button, Row, Col } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
-  fetchEventList,
+  fetchEventList, filterEvent
 } from '../reducers/actions/actionsEvents';
 import './event.css';
 
 class EventsList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.filterEventByCategory = this.filterEventByCategory.bind(this);
+}
+
 
   componentDidMount() {
     this.fetchEvents();
@@ -30,14 +37,18 @@ class EventsList extends React.Component {
   }
 
   // sort event's date by chronology 
-  sortEvents(eventList){
-    eventList.sort(function(a,b){
+  sortEvents(eventList) {
+    eventList.sort(function (a, b) {
       return new Date(a.date.toString()) - new Date(b.date.toString())
     })
   }
 
+  filterEventByCategory(e) {
+    this.props.filterEvent(e);
+  }
+
   render() {
-    const { eventList, history } = this.props;
+    const { eventList, categoryEvent, history } = this.props;
     return (
       <div>
         <div className="margin">
@@ -47,38 +58,57 @@ class EventsList extends React.Component {
         </div>
         <Container className="border-container">
           <h1>Liste des événements:</h1>
+          <Col lg={6}>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Category Selection</Form.Label>
+              <Form.Control as="select" value={categoryEvent} name="categoryEvent" onChange={this.filterEventByCategory}>
+                <option value="">Choose a category...</option>
+                <option value="fête">Fête</option>
+                <option value="conférence">Conférence</option>
+                <option value="anniversaire">Anniversaire</option>
+                <option value="réunion">Réunion</option>
+                <option value="">Tout voir</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
           <Row className="event-list">
             {
               eventList.length > 0
-                ? eventList.map((event) => (
-                  <Col lg={5} md={5} sm={5} xs={12} className="margin-event">
-                    <Event
-                      key={event.id}
-                      id={event.id}
-                      title={event.title}
-                      category={event.category}
-                      date={event.date}
-                      hour={event.hour}
-                      unix_time={event.unix_time}
-                      description={event.description}
-                      history={history}
-                    />
-                  </Col>
-                ))
+                ? eventList
+                  .filter(event => (
+                    event.category === categoryEvent || categoryEvent === ''
+                  ))
+                  .map((event) => (
+                    <Col lg={4} md={4} sm={6} xs={12} className="margin-event" key={event.id}>
+                      <Event
+                        key={event.id}
+                        id={event.id}
+                        title={event.title}
+                        category={event.category}
+                        date={event.date}
+                        hour={event.hour}
+                        unix_time={event.unix_time}
+                        description={event.description}
+                        history={history}
+                      />
+                    </Col>
+                  ))
                 : <h1 className="text-align">Aucun événement</h1>
             }
-            </Row>
+          </Row>
         </Container>
       </div>
-          );
-        }
-      }
+    );
+  }
+}
 const mapStateToProps = (state) => ({
-            eventList: state.events.eventList,
-        });
-        
+  eventList: state.events.eventList,
+  categoryEvent: state.events.categoryEvent,
+});
+
 const mapDispatchToProps = (dispatch) => ({
-            fetchEventList: bindActionCreators(fetchEventList, dispatch),
-        });
-        
-        export default connect(mapStateToProps, mapDispatchToProps)(EventsList);
+  fetchEventList: bindActionCreators(fetchEventList, dispatch),
+  filterEvent: bindActionCreators(filterEvent, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventsList);

@@ -84,6 +84,7 @@ class EventForm extends React.Component {
                                     value={title}
                                     name="title"
                                     onChange={this.handleChange}
+                                    maxLength="60"
                                     required
                                 />
                             </Form.Group>
