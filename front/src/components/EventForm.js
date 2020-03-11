@@ -25,6 +25,16 @@ class EventForm extends React.Component {
         // add event on state 
     }
 
+    checkTodayDate() {
+        let date = new Date();
+        const year = date.getFullYear();
+        const month = date.getUTCMonth() + 1;
+        let day = date.getUTCDate();
+        if (day < 10) date = `0${day}`;
+        const todayDate = `${year}-0${month}-${day}`;
+        return todayDate;
+    }
+
     // create event 
     postEvent(e) {
         e.preventDefault();
@@ -59,6 +69,7 @@ class EventForm extends React.Component {
             description,
             history
         } = this.props;
+        const todayDate = this.checkTodayDate();
         return (
             <Container className="margin">
                 <h1 className="margin">Formulaire</h1>
@@ -106,6 +117,7 @@ class EventForm extends React.Component {
                                     name="date"
                                     onChange={this.handleChange}
                                     required
+                                    min={todayDate}
                                 />
                             </Form.Group>
                         </Col>

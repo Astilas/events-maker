@@ -20,11 +20,20 @@ class EventsList extends React.Component {
     axios.get('http://localhost:5000/events')
       .then((res) => {
         const eventList = res.data;
-        this.props.fetchEventList(eventList)
+        console.log(eventList);
+        this.sortEvents(eventList);
+        this.props.fetchEventList(eventList);
       })
       .catch((e) => {
         console.log(e);
       });
+  }
+
+  // sort event's date by chronology 
+  sortEvents(eventList){
+    eventList.sort(function(a,b){
+      return new Date(a.date.toString()) - new Date(b.date.toString())
+    })
   }
 
   render() {

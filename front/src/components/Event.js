@@ -39,42 +39,11 @@ class Event extends React.Component {
     this.deleteEvent(id)
   }
 
-  monthValue(month) {
-    switch (month) {
-    case 0:
-      return '01';
-    case 1:
-      return '02';
-    case 2:
-      return '03';
-    case 3:
-      return '04';
-    case 4:
-     return '05';
-    case 5:
-      return '06';
-    case 6:
-      return '07';
-    case 7:
-      return '08';
-    case 8:
-      return '09';
-    case 9:
-      return '10';
-    case 10:
-      return '11';
-    case 11:
-      return '12';
-    default:
-      return month;
-  };
-}
-
   render() {
     const { title, date, hour, unix_time, description, id, history } = this.props;
     const unixTime = parseInt(unix_time)
     const year = new Date(unixTime).getFullYear();
-    const month = new Date(unixTime).getUTCMonth();
+    const month = new Date(unixTime).getUTCMonth()+1;
     const day = new Date(unixTime).getUTCDate();
     const hours = new Date(unixTime).getHours();
     const minutes = new Date(unixTime).getMinutes();
@@ -89,7 +58,7 @@ class Event extends React.Component {
             <Card.Title>{date.slice(0, 10)} à {hour.slice(0, 5)}</Card.Title>
             <Card.Text>
               {description}
-              <small className="content-right">created {year}-{this.monthValue(month)}-{day} at {hours}:{minutes} {} </small>
+              <small className="content-right">created {year}-{month}-{day} at {hours}:{minutes} {} </small>
             </Card.Text>
           </Card.Body>
           <Card.Footer>
