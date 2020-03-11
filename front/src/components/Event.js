@@ -17,7 +17,6 @@ class Event extends React.Component {
     this.state = {};
 
     this.handleDelete = this.handleDelete.bind(this);
-    this.monthValue = this.monthValue.bind(this);
   }
 
   // function that delete an event with corresponding id
