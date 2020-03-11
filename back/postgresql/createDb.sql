@@ -20,5 +20,4 @@ CREATE TABLE events
     hour TIME,
     unix_time bigint NOT NULL, 
     description VARCHAR(260) NOT NULL, 
-    location VARCHAR(60) NOT NULL,
 )
