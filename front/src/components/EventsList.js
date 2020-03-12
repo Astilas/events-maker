@@ -63,7 +63,6 @@ class EventsList extends React.Component {
               <Form.Label>Category Selection</Form.Label>
               <Form.Control as="select" value={categoryEvent} name="categoryEvent" onChange={this.filterEventByCategory}>
                 <option value="">Choose a category...</option>
-                <option value="">Choose...</option>
                 <option value="party">Party</option>
                 <option value="festival">Festival</option>
                 <option value="concert">Concert</option>
