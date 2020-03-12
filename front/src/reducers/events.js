@@ -41,7 +41,7 @@ const eventsReducer = (state = initialState, action) => {
       }
     }
     case 'CLEAR_FORM': {
-      const { eventList } = state;
+      const { eventList, categoryEvent } = state;
       return {
         eventList,
         title: '', 
@@ -50,7 +50,7 @@ const eventsReducer = (state = initialState, action) => {
         hour: '',  
         description:'',
         address: '',
-        categoryEvent: '',
+        categoryEvent: categoryEvent,
       }
     }
     case 'FILTER_EVENT': {
