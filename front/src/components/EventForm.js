@@ -136,6 +136,7 @@ class EventForm extends React.Component {
                                     onChange={this.handleChange}
                                     required
                                     min={todayDate}
+                                    max="2025-12-31"
                                 />
                             </Form.Group>
                         </Col>
