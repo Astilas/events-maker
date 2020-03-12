@@ -47,9 +47,11 @@ class Event extends React.Component {
     const year = new Date(unixTime).getFullYear();
     let month = new Date(unixTime).getMonth()+1;
     if (month < 10) month = `0${month}`
-    const day = new Date(unixTime).getDate();
+    let day = new Date(unixTime).getDate();
+    if (day < 10) day = `0${day}`
     const hours = new Date(unixTime).getHours();
-    const minutes = new Date(unixTime).getMinutes();
+    let minutes = new Date(unixTime).getMinutes();
+    if (minutes < 10) minutes = `0${minutes}`
 
     return (
       <Container>
@@ -62,7 +64,7 @@ class Event extends React.Component {
             <h5>Adress: {address}</h5>
           </Card.Header>
           <Card.Body className="card-body-css">
-            <Card.Title>Le {date.slice(0, 10)} à {hour.slice(0, 5)}</Card.Title>
+            <Card.Title>Le {date} à {hour.slice(0, 5)}</Card.Title>
             <Card.Text className="">
               {description}
               <small className="content-right">created {year}-{month}-{day} at {hours}:{minutes} {} </small>

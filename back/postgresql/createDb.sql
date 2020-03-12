@@ -16,7 +16,7 @@ CREATE TABLE events
     id SERIAL PRIMARY KEY NOT NULL, 
     title VARCHAR(30) NOT NULL,
     category VARCHAR(60) NOT NULL,
-    date DATE NOT NULL,
+    date VARCHAR(10) NOT NULL,
     hour TIME,
     unix_time bigint NOT NULL, 
     description VARCHAR(200) NOT NULL,

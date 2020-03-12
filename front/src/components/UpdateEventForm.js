@@ -40,16 +40,6 @@ class UpdateEventForm extends React.Component {
         })
     }
 
-    checkTodayDate() {
-        let date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        let day = date.getDate();
-        if (day < 10) date = `0${day}`;
-        const todayDate = `${year}-0${month}-${day}`;
-        return todayDate;
-    }
-
     // Update event with corresponding id
     updateEvent(e) {
         e.preventDefault();
@@ -88,8 +78,6 @@ class UpdateEventForm extends React.Component {
             address,
             history,
         } = this.props;
-
-        const todayDate = this.checkTodayDate();
         return (
             <Container className="">
                 <h1 className="margin">Update your event</h1>
@@ -153,10 +141,10 @@ class UpdateEventForm extends React.Component {
                                 <Form.Label className="font-size">Date</Form.Label>
                                 <Form.Control
                                     type="date"
-                                    value={date.slice(0,10)}
+                                    value={date}
                                     name="date"
                                     onChange={this.handleChange}
-                                    min={todayDate}
+                                    min={date}
                                     max="2025-12-31"
                                     required
                                 />

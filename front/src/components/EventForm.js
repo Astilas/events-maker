@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { createEvent, clearForm } from '../reducers/actions/actionsEvents';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import checkTodayDate from '../functions/checkTodayDate';
 
 const notify = () => toast('Your event has been created');
 const notifyError = () => toast('Unexpected error has occur')
@@ -23,16 +24,6 @@ class EventForm extends React.Component {
     handleChange(e) {
         this.props.createEvent(e)
         // add event on state 
-    }
-
-    checkTodayDate() {
-        let date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        let day = date.getDate();
-        if (day < 10) date = `0${day}`;
-        const todayDate = `${year}-0${month}-${day}`;
-        return todayDate;
     }
 
     // create event 
@@ -72,7 +63,7 @@ class EventForm extends React.Component {
             address,
             history
         } = this.props;
-        const todayDate = this.checkTodayDate();
+        const todayDate = checkTodayDate();
         return (
             <Container className="margin">
                 <h1 className="margin">Create your event</h1>
