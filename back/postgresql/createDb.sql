@@ -1,6 +1,6 @@
 -- DATABASE calendar;
 
-CREATE DATABASE calendar2
+CREATE DATABASE calendar
     WITH 
     OWNER = postgres
     ENCODING = 'UTF8'
@@ -14,10 +14,11 @@ CREATE DATABASE calendar2
 CREATE TABLE events 
 (
     id SERIAL PRIMARY KEY NOT NULL, 
-    title VARCHAR(60) NOT NULL,
+    title VARCHAR(30) NOT NULL,
     category VARCHAR(60) NOT NULL,
     date DATE NOT NULL,
     hour TIME,
     unix_time bigint NOT NULL, 
-    description VARCHAR(260) NOT NULL, 
+    description VARCHAR(200) NOT NULL,
+    address VARCHAR(40) NOT NULL
 )

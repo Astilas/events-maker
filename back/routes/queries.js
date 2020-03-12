@@ -2,16 +2,17 @@ const pool = require('../module-db/config')
 
   // Query allowing to create an event
   const createEvent = (request, response) => {
-    const { title, category, date, hour, description} = request.body;
+    const { title, category, date, hour, description, address} = request.body;
 
-    pool.query('INSERT INTO "events" (title, category, date, hour, unix_time, description) VALUES ($1, $2, $3, $4, $5, $6)', 
+    pool.query('INSERT INTO "events" (title, category, date, hour, unix_time, description, address) VALUES ($1, $2, $3, $4, $5, $6, $7)', 
     [
-      title, 
-      category, 
-      date, 
-      hour, 
+      title,
+      category,
+      date,
+      hour,
       unix_time = Date.now(),
-      description, 
+      description,
+      address,
     ], (error, results) => {
         if (error) {
           throw error;
@@ -44,7 +45,7 @@ const pool = require('../module-db/config')
   // Query allowing to update events table
   const updateEvent = (request, response) => {
     const id = parseInt(request.params.id);
-    const { title, category, date, hour, description } = request.body;
+    const { title, category, date, hour, description, address } = request.body;
     pool.query(
       `UPDATE events SET 
         title = $1, 
@@ -52,9 +53,10 @@ const pool = require('../module-db/config')
         date = $3, 
         hour = $4, 
         unix_time = $5, 
-        description = $6
-        WHERE id = $7`,
-      [title, category, date, hour, unix_time= Date.now(), description, id],
+        description = $6,
+        address = $7
+        WHERE id = $8`,
+      [title, category, date, hour, unix_time= Date.now(), description, address, id],
       (error, results) => {
         if (error) {
           throw error;
