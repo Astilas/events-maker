@@ -28,8 +28,8 @@ class EventForm extends React.Component {
     checkTodayDate() {
         let date = new Date();
         const year = date.getFullYear();
-        const month = date.getUTCMonth() + 1;
-        let day = date.getUTCDate();
+        const month = date.getMonth() + 1;
+        let day = date.getDate();
         if (day < 10) date = `0${day}`;
         const todayDate = `${year}-0${month}-${day}`;
         return todayDate;
@@ -44,6 +44,7 @@ class EventForm extends React.Component {
             date,
             hour,
             description,
+            address,
             history
         } = this.props;
         axios.post('http://localhost:5000/events',
@@ -53,6 +54,7 @@ class EventForm extends React.Component {
                 date,
                 hour,
                 description,
+                address
             })
             .then(() => history.push('/'))
             .then(() => this.props.clearForm()) // clear inpput
@@ -67,31 +69,46 @@ class EventForm extends React.Component {
             date,
             hour,
             description,
+            address,
             history
         } = this.props;
         const todayDate = this.checkTodayDate();
         return (
             <Container className="margin">
-                <h1 className="margin">Formulaire</h1>
+                <h1 className="margin">Create your event</h1>
                 <Form onSubmit={this.postEvent}>
                     <Row>
-                        <Col lg={6} md={6} sm={6} xs={6}>
+                        <Col lg={4} md={4} sm={4} xs={4}>
                             <Form.Group>
-                                <Form.Label>Titre</Form.Label>
+                                <Form.Label className="font-size">Title</Form.Label>
                                 <Form.Control
                                     type="name"
                                     placeholder="title"
                                     value={title}
                                     name="title"
                                     onChange={this.handleChange}
-                                    maxLength="60"
+                                    maxLength="30"
                                     required
                                 />
                             </Form.Group>
                         </Col>
-                        <Col lg={6} md={6} sm={6} xs={6}>
+                        <Col lg={4} md={4} sm={4} xs={4}>
                             <Form.Group>
-                                <Form.Label>Categorie</Form.Label>
+                                <Form.Label className="font-size">Address</Form.Label>
+                                <Form.Control
+                                    type="name"
+                                    placeholder="event's address"
+                                    value={address}
+                                    name="address"
+                                    onChange={this.handleChange}
+                                    maxLength="40"
+                                    required
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col lg={4} md={4} sm={4} xs={4}>
+                            <Form.Group>
+                                <Form.Label className="font-size">Category</Form.Label>
                                 <Form.Control
                                     as="select"
                                     value={category}
@@ -100,10 +117,10 @@ class EventForm extends React.Component {
                                     required
                                 >
                                     <option value="">Choose...</option>
-                                    <option value="fête">Fête</option>
-                                    <option value="conférence">Conférence</option>
-                                    <option value="anniversaire">Anniversaire</option>
-                                    <option value="réunion">Réunion</option>
+                                    <option value="party">Party</option>
+                                    <option value="conference">Conference</option>
+                                    <option value="anniversary">Anniversary</option>
+                                    <option value="meeting">Meeting</option>
                                 </Form.Control>
                             </Form.Group>
                         </Col>
@@ -111,7 +128,7 @@ class EventForm extends React.Component {
                     <Row>
                         <Col lg={6} md={6} sm={6} xs={6}>
                             <Form.Group>
-                                <Form.Label>Date</Form.Label>
+                                <Form.Label className="font-size">Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={date}
@@ -124,7 +141,7 @@ class EventForm extends React.Component {
                         </Col>
                         <Col lg={6} md={6} sm={6} xs={6}>
                             <Form.Group>
-                                <Form.Label>Heure</Form.Label>
+                                <Form.Label className="font-size">Hour</Form.Label>
                                 <Form.Control
                                     type="time"
                                     placeholder="16h30"
@@ -137,27 +154,27 @@ class EventForm extends React.Component {
                         </Col>
                     </Row>
                     <Form.Group>
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label className="font-size">Description</Form.Label>
                         <Form.Control
                             as="textarea"
                             rows="3"
                             value={description}
                             name="description"
                             onChange={this.handleChange}
-                            maxLength="260"
+                            maxLength="200"
                             required
                         />
                     </Form.Group>
                     <Button
-                        variant="primary"
+                        variant="light"
                         type="submit"
                         className="margin"
                     >
                         Submit
                     </Button>
                     <Button
-                        variant="primary"
-                        onClick={() => history.push("/")}
+                        variant="light"
+                        onClick={() => {history.push("/"); this.props.clearForm()}}
                     >
                         Back
                     </Button>
@@ -174,6 +191,7 @@ const mapStateToProps = (state) => ({
     date: state.events.date,
     hour: state.events.hour,
     description: state.events.description,
+    address: state.events.address,
 });
 
 const mapDispatchToProps = (dispatch) => ({

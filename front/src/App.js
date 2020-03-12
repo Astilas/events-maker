@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App background-img">
       <Switch>
         <Route exact path="/eventForm" component={EventForm} />
         <Route exact path="/" render={props => <EventsList {...props} />} />

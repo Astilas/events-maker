@@ -5,9 +5,10 @@
 }
 
 .div-event {
-    border: solid black;
+    /* border: solid black; */
     margin-bottom: 20px;
     overflow-wrap: break-word;
+    justify-content: center
 }
 
 .icon-size {
@@ -29,8 +30,8 @@
 }
 
 .card {
-    width: 400px;
-    height: 340px;
+    width: 600px;
+    height: 400px;
 }
 
 .event-list {
@@ -41,6 +42,8 @@
 .content-right{
     display: flex;
     justify-content: flex-end;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .flex-content{
@@ -50,4 +53,20 @@
 
 .icon-size :hover{
     transform: scale(1.2);
+}
+
+.card-body-css{
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+}
+
+.font-size {
+    font-size: 20px;
+}
+
+@media (min-width: 992px){
+.col-lg-5 {
+        max-width: 100% !important;
+    }   
 }

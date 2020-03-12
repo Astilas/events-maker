@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.background-img {
+  background-image: url('https://pngimage.net/wp-content/uploads/2018/06/festival-background-designs-png-1.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

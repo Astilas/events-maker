@@ -52,22 +52,22 @@ class EventsList extends React.Component {
     return (
       <div>
         <div className="margin">
-          <Button onClick={() => history.push('/eventForm')}>
+          <Button variant="success" onClick={() => history.push('/eventForm')}>
             Create new event
       </Button>
         </div>
         <Container className="border-container">
-          <h1>Liste des événements:</h1>
+          <h1>Event list</h1>
           <Col lg={6}>
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Category Selection</Form.Label>
               <Form.Control as="select" value={categoryEvent} name="categoryEvent" onChange={this.filterEventByCategory}>
                 <option value="">Choose a category...</option>
-                <option value="fête">Fête</option>
-                <option value="conférence">Conférence</option>
-                <option value="anniversaire">Anniversaire</option>
-                <option value="réunion">Réunion</option>
-                <option value="">Tout voir</option>
+                <option value="party">Party</option>
+                <option value="conference">Conference</option>
+                <option value="anniversaire">Anniversary</option>
+                <option value="meeting">Meeting</option>
+                <option value="">View all</option>
               </Form.Control>
             </Form.Group>
           </Col>
@@ -79,7 +79,7 @@ class EventsList extends React.Component {
                     event.category === categoryEvent || categoryEvent === ''
                   ))
                   .map((event) => (
-                    <Col lg={4} md={4} sm={6} xs={12} className="margin-event" key={event.id}>
+                    <Col lg={5} md={12} sm={12} xs={9} className="margin-event" key={event.id}>
                       <Event
                         key={event.id}
                         id={event.id}
@@ -89,11 +89,12 @@ class EventsList extends React.Component {
                         hour={event.hour}
                         unix_time={event.unix_time}
                         description={event.description}
+                        address={event.address}
                         history={history}
                       />
                     </Col>
                   ))
-                : <h1 className="text-align">Aucun événement</h1>
+                : <h1 className="text-align">No event found</h1>
             }
           </Row>
         </Container>

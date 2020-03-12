@@ -5,6 +5,7 @@ const initialState = {
   date: '', 
   hour: '',  
   description:'',
+  address: '',
   categoryEvent: '',
 };
 
@@ -24,6 +25,7 @@ const eventsReducer = (state = initialState, action) => {
         description: action.description,
         hour: action.hour,
         date: action.date,
+        address: action.address,
       }
     }
     case 'POST_EVENT': {
@@ -47,6 +49,7 @@ const eventsReducer = (state = initialState, action) => {
         date: '', 
         hour: '',  
         description:'',
+        address: '',
         categoryEvent: '',
       }
     }

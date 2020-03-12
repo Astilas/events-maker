@@ -49,6 +49,7 @@ class UpdateEventForm extends React.Component {
             date,
             hour,
             description,
+            address,
             history
         } = this.props;
         const { id } = this.props.match.params;
@@ -59,6 +60,7 @@ class UpdateEventForm extends React.Component {
                 date,
                 hour,
                 description,
+                address
             })
             .then(() => history.push('/'))
             .then(() => this.props.clearForm())
@@ -73,30 +75,46 @@ class UpdateEventForm extends React.Component {
             date,
             hour,
             description,
+            address,
             history,
         } = this.props;
 
         return (
             <Container className="">
-                <h1 className="margin">Mise à jour de l'événement</h1>
+                <h1 className="margin">Update your event</h1>
                 <Form onSubmit={this.updateEvent}>
                     <Row>
-                        <Col lg={6} md={6} sm={6} xs={6}>
+                        <Col lg={4} md={4} sm={4} xs={4}>
                             <Form.Group>
-                                <Form.Label>Titre</Form.Label>
+                                <Form.Label className="font-size">Title</Form.Label>
                                 <Form.Control
                                     type="name"
                                     value={title}
                                     placeholder={title}
                                     name="title"
                                     onChange={this.handleChange}
+                                    maxLength="30"
                                     required
                                 />
                             </Form.Group>
                         </Col>
-                        <Col lg={6} md={6} sm={6} xs={6}>
+                        <Col lg={4} md={4} sm={4} xs={4}>
                             <Form.Group>
-                                <Form.Label>Categorie</Form.Label>
+                                <Form.Label className="font-size">Address</Form.Label>
+                                <Form.Control
+                                    type="name"
+                                    placeholder="event's address"
+                                    value={address}
+                                    name="address"
+                                    onChange={this.handleChange}
+                                    maxLength="40"
+                                    required
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col lg={4} md={4} sm={4} xs={4}>
+                            <Form.Group>
+                                <Form.Label className="font-size">Category</Form.Label>
                                 <Form.Control
                                     as="select"
                                     value={category}
@@ -105,10 +123,10 @@ class UpdateEventForm extends React.Component {
                                     required
                                 >
                                     <option value={category}>{category}</option>
-                                    <option value="fête">Fête</option>
-                                    <option value="conférence">Conférence</option>
-                                    <option value="anniversaire">Anniversaire</option>
-                                    <option value="réunion">Réunion</option>
+                                    <option value="party">Party</option>
+                                    <option value="conference">Conference</option>
+                                    <option value="anniversary">Anniversary</option>
+                                    <option value="meeting">Meeting</option>
                                 </Form.Control>
                             </Form.Group>
                         </Col>
@@ -116,7 +134,7 @@ class UpdateEventForm extends React.Component {
                     <Row>
                         <Col lg={6} md={6} sm={6} xs={6}>
                             <Form.Group>
-                                <Form.Label>Date</Form.Label>
+                                <Form.Label className="font-size">Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={date.slice(0,10)}
@@ -127,8 +145,8 @@ class UpdateEventForm extends React.Component {
                             </Form.Group>
                         </Col>
                         <Col lg={6} md={6} sm={6} xs={6}>
-                            <Form.Group>
-                                <Form.Label>Heure</Form.Label>
+                            <Form.Group className="font-size">
+                                <Form.Label>Hour</Form.Label>
                                 <Form.Control
                                     type="time"
                                     value={hour}
@@ -140,7 +158,7 @@ class UpdateEventForm extends React.Component {
                         </Col>
                     </Row>
                     <Form.Group>
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label className="font-size">Description</Form.Label>
                         <Form.Control
                             as="textarea"
                             rows="3"
@@ -148,19 +166,19 @@ class UpdateEventForm extends React.Component {
                             name="description"
                             placeholder={description}
                             onChange={this.handleChange}
-                            maxLength="260"
+                            maxLength="200"
                             required
                         />
                     </Form.Group>
                     <Button
-                        variant="primary"
+                        variant="light"
                         type="submit"
                         className="margin"
                     >
                         Update
                     </Button>
                     <Button
-                        variant="primary"
+                        variant="light"
                         onClick={() => {history.push("/"); this.props.clearForm()}}
                     >
                         Back
@@ -177,6 +195,7 @@ const mapStateToProps = (state) => ({
     date: state.events.date,
     hour: state.events.hour,
     description: state.events.description,
+    address: state.events.address,
 });
 
 const mapDispatchToProps = (dispatch) => ({
