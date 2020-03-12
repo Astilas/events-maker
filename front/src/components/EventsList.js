@@ -27,7 +27,6 @@ class EventsList extends React.Component {
     axios.get('http://localhost:5000/events')
       .then((res) => {
         const eventList = res.data;
-        console.log(eventList);
         this.sortEvents(eventList);
         this.props.fetchEventList(eventList);
       })

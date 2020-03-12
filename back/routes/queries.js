@@ -3,7 +3,6 @@ const pool = require('../module-db/config')
   // Query allowing to create an event
   const createEvent = (request, response) => {
     const { title, category, date, hour, description, address} = request.body;
-    console.log(date, 'queries date')
 
     pool.query(`INSERT INTO "events" (title, category, date, hour, unix_time, description, address) VALUES ($1, $2, $3, $4, $5, $6, $7)`, 
     [
@@ -18,7 +17,6 @@ const pool = require('../module-db/config')
         if (error) {
           throw error;
         }
-        console.log(results)
         response.status(201).send('Event added')
     });
   };
@@ -29,7 +27,6 @@ const pool = require('../module-db/config')
         if (error) {
           throw error;
         }
-        console.log(results)
         response.status(200).json(results.rows);
       })
   };
