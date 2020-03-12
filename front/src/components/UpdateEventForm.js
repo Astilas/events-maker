@@ -133,11 +133,16 @@ class UpdateEventForm extends React.Component {
                                     onChange={this.handleChange}
                                     required
                                 >
-                                    <option value={category}>{category}</option>
+                                    <option value="">Choose...</option>
                                     <option value="party">Party</option>
+                                    <option value="festival">Festival</option>
+                                    <option value="concert">Concert</option>
                                     <option value="conference">Conference</option>
                                     <option value="anniversary">Anniversary</option>
                                     <option value="meeting">Meeting</option>
+                                    <option value="seminar">Seminar</option>
+                                    <option value="team building">Team building</option>
+                                    <option value="sport event">Sport event</option>
                                 </Form.Control>
                             </Form.Group>
                         </Col>

@@ -15,7 +15,7 @@ class EventsList extends React.Component {
     super(props);
     this.state = {};
     this.filterEventByCategory = this.filterEventByCategory.bind(this);
-}
+  }
 
 
   componentDidMount() {
@@ -63,10 +63,16 @@ class EventsList extends React.Component {
               <Form.Label>Category Selection</Form.Label>
               <Form.Control as="select" value={categoryEvent} name="categoryEvent" onChange={this.filterEventByCategory}>
                 <option value="">Choose a category...</option>
+                <option value="">Choose...</option>
                 <option value="party">Party</option>
+                <option value="festival">Festival</option>
+                <option value="concert">Concert</option>
                 <option value="conference">Conference</option>
-                <option value="anniversaire">Anniversary</option>
+                <option value="anniversary">Anniversary</option>
                 <option value="meeting">Meeting</option>
+                <option value="seminar">Seminar</option>
+                <option value="team building">Team building</option>
+                <option value="sport event">Sport event</option>
                 <option value="">View all</option>
               </Form.Control>
             </Form.Group>
